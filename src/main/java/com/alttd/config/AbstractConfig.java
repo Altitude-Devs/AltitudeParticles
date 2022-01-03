@@ -1,6 +1,6 @@
 package com.alttd.config;
 
-import com.alttd.VillagerUI;
+import com.alttd.AltitudeParticles;
 import com.alttd.util.Logger;
 import com.google.common.collect.ImmutableMap;
 import org.bukkit.configuration.ConfigurationSection;
@@ -24,7 +24,7 @@ abstract class AbstractConfig {
     YamlConfiguration yaml;
 
     AbstractConfig(String filename) {
-        init(new File(VillagerUI.getInstance().getDataFolder(), filename), filename);
+        init(new File(AltitudeParticles.getInstance().getDataFolder(), filename), filename);
     }
 
     AbstractConfig(File file, String filename) {

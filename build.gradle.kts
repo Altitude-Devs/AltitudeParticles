@@ -7,7 +7,7 @@ plugins {
 
 group = "com.alttd"
 version = "1.0.0-SNAPSHOT"
-description = "Altitude Villager Shop plugin."
+description = "Altitude Particles plugin."
 
 apply<JavaLibraryPlugin>()
 
@@ -45,8 +45,4 @@ tasks {
 
 dependencies {
     compileOnly("com.alttd:Galaxy-API:1.18.1-R0.1-SNAPSHOT")
-    compileOnly("com.github.milkbowl:VaultAPI:1.7") {
-        exclude("org.bukkit","bukkit")
-    }
-    shadow("org.apache.commons:commons-math3:3.2")
 }

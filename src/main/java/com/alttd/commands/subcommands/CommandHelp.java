@@ -3,7 +3,6 @@ package com.alttd.commands.subcommands;
 import com.alttd.commands.CommandManager;
 import com.alttd.commands.SubCommand;
 import com.alttd.config.Config;
-import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -21,10 +20,11 @@ public class CommandHelp extends SubCommand {
 
     @Override
     public boolean onCommand(CommandSender commandSender, String[] args) {
-        commandSender.sendMessage(getMiniMessage().parse(Config.HELP_MESSAGE_WRAPPER, Template.of("commands", commandManager.getSubCommands().stream()
-                .filter(subCommand -> commandSender.hasPermission(subCommand.getPermission()))
-                .map(SubCommand::getHelpMessage)
-                .collect(Collectors.joining("\n")))));
+        commandSender.sendMiniMessage(Config.HELP_MESSAGE_WRAPPER.replaceAll("<commands>", commandManager
+                        .getSubCommands().stream()
+                        .filter(subCommand -> commandSender.hasPermission(subCommand.getPermission()))
+                        .map(SubCommand::getHelpMessage)
+                        .collect(Collectors.joining("\n"))), null);
         return true;
     }
 

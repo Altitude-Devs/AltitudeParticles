@@ -2,8 +2,7 @@ package com.alttd.commands.subcommands;
 
 import com.alttd.commands.SubCommand;
 import com.alttd.config.Config;
-import com.alttd.config.VillagerConfig;
-import com.alttd.config.WorthConfig;
+import com.alttd.config.DatabaseConfig;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -14,9 +13,8 @@ public class CommandReload extends SubCommand {
     @Override
     public boolean onCommand(CommandSender commandSender, String[] args) {
         Config.reload();
-        VillagerConfig.reload();
-        WorthConfig.reload();
-        commandSender.sendMessage(getMiniMessage().parse("<green>Reloaded VillagerShopUI config.</green>"));
+        DatabaseConfig.reload();
+        commandSender.sendMiniMessage("<green>Reloaded VillagerShopUI config.</green>", null);
         return true;
     }
 

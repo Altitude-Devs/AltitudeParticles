@@ -1,10 +1,10 @@
-rootProject.name = "VillagerShopUI"
+rootProject.name = "AltitudeParticles"
 
 dependencyResolutionManagement {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven("https://repo.destro.xyz/snapshots") // Altitude - Galaxy
+        maven("https://papermc.io/repo/repository/maven-public/") // Paper
         maven("https://jitpack.io") { // Vault
             content { includeGroup("com.github.milkbowl") }
         }

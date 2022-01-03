@@ -1,13 +1,13 @@
 package com.alttd.util;
 
-import com.alttd.VillagerUI;
+import com.alttd.AltitudeParticles;
 
 public class Logger {
 
     static private final java.util.logging.Logger logger;
 
     static {
-        logger = VillagerUI.getInstance().getLogger();
+        logger = AltitudeParticles.getInstance().getLogger();
     }
 
     public static void info(String info, String... variables)

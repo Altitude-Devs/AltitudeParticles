@@ -1,14 +1,10 @@
 package com.alttd.commands;
 
-import com.alttd.VillagerUI;
-import com.alttd.commands.subcommands.CommandCreateVillager;
+import com.alttd.AltitudeParticles;
 import com.alttd.commands.subcommands.CommandHelp;
 import com.alttd.commands.subcommands.CommandReload;
-import com.alttd.commands.subcommands.CommandRemoveVillager;
 import com.alttd.config.Config;
 import com.alttd.util.Logger;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.command.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,16 +16,14 @@ import java.util.stream.Collectors;
 
 public class CommandManager implements CommandExecutor, TabExecutor {
     private final List<SubCommand> subCommands;
-    private final MiniMessage miniMessage;
 
     public CommandManager() {
-        VillagerUI villagerUI = VillagerUI.getInstance();
+        AltitudeParticles aPart = AltitudeParticles.getInstance();
 
-        PluginCommand command = villagerUI.getCommand("villagerui");
+        PluginCommand command = aPart.getCommand("apart");
         if (command == null) {
             subCommands = null;
-            miniMessage = null;
-            Logger.severe("Unable to find villager ui command.");
+            Logger.severe("Unable to find AltitudeParticles command.");
             return;
         }
         command.setExecutor(this);
@@ -37,26 +31,23 @@ public class CommandManager implements CommandExecutor, TabExecutor {
 
         subCommands = Arrays.asList(
                 new CommandHelp(this),
-                new CommandCreateVillager(),
-                new CommandReload(),
-                new CommandRemoveVillager());
-        miniMessage = MiniMessage.get();
+                new CommandReload());
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String cmd, @NotNull String[] args) {
         if (args.length == 0) {
-            commandSender.sendMessage(miniMessage.parse(Config.HELP_MESSAGE_WRAPPER, Template.of("commands", subCommands.stream()
+            commandSender.sendMiniMessage(Config.HELP_MESSAGE_WRAPPER.replaceAll("<config>", subCommands.stream()
                     .filter(subCommand -> commandSender.hasPermission(subCommand.getPermission()))
                     .map(SubCommand::getHelpMessage)
-                    .collect(Collectors.joining("\n")))));
+                    .collect(Collectors.joining("\n"))), null);
             return true;
         }
 
         SubCommand subCommand = getSubCommand(args[0]);
 
         if (!commandSender.hasPermission(subCommand.getPermission())) {
-            commandSender.sendMessage(miniMessage.parse(Config.NO_PERMISSION));
+            commandSender.sendMiniMessage(Config.NO_PERMISSION, null);
             return true;
         }
 
