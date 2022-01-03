@@ -35,7 +35,7 @@ public class CommandHelp extends SubCommand {
 
     @Override
     public String getPermission() {
-        return "villagerui.use";
+        return "apart.use";
     }
 
     @Override

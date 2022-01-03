@@ -1,10 +1,9 @@
-name: VillagerShopUI
+name: AltitudeParticles
 version: ${project.version}
-main: com.alttd.VillagerUI
+main: com.alttd.AltitudeParticles
 api-version: 1.17
-depend: [Vault]
 commands:
-  villagerui:
-    permission: villagerui.use
-    description: Handles all villagerui commands
-    usage: /villagerui
+  apart:
+    permission: apart.use
+    description: Handles all AltitudeParticles commands
+    usage: /apart
