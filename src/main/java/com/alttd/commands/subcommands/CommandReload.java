@@ -14,7 +14,7 @@ public class CommandReload extends SubCommand {
     public boolean onCommand(CommandSender commandSender, String[] args) {
         Config.reload();
         DatabaseConfig.reload();
-        commandSender.sendMiniMessage("<green>Reloaded VillagerShopUI config.</green>", null);
+        commandSender.sendMiniMessage("<green>Reloaded AltitudeParticles config.</green>", null);
         return true;
     }
 
