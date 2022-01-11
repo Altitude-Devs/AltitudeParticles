@@ -1,6 +1,7 @@
 package com.alttd.commands;
 
 import com.alttd.AltitudeParticles;
+import com.alttd.commands.subcommands.CommandGUI;
 import com.alttd.commands.subcommands.CommandHelp;
 import com.alttd.commands.subcommands.CommandReload;
 import com.alttd.config.Config;
@@ -31,20 +32,17 @@ public class CommandManager implements CommandExecutor, TabExecutor {
 
         subCommands = Arrays.asList(
                 new CommandHelp(this),
-                new CommandReload());
+                new CommandReload(),
+                new CommandGUI());
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String cmd, @NotNull String[] args) {
-        if (args.length == 0) {
-            commandSender.sendMiniMessage(Config.HELP_MESSAGE_WRAPPER.replaceAll("<config>", subCommands.stream()
-                    .filter(subCommand -> commandSender.hasPermission(subCommand.getPermission()))
-                    .map(SubCommand::getHelpMessage)
-                    .collect(Collectors.joining("\n"))), null);
-            return true;
-        }
-
-        SubCommand subCommand = getSubCommand(args[0]);
+        SubCommand subCommand;
+        if (args.length == 0)
+            subCommand = getSubCommand("gui");
+        else
+            subCommand = getSubCommand(args[0]);
 
         if (!commandSender.hasPermission(subCommand.getPermission())) {
             commandSender.sendMiniMessage(Config.NO_PERMISSION, null);

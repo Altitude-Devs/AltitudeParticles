@@ -2,25 +2,28 @@ package com.alttd.commands.subcommands;
 
 import com.alttd.commands.SubCommand;
 import com.alttd.config.Config;
-import com.alttd.config.DatabaseConfig;
+import com.alttd.gui.windows.OpenParticleGUI;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandReload extends SubCommand {
+public class CommandGUI extends SubCommand {
 
     @Override
     public boolean onCommand(CommandSender commandSender, String[] args) {
-        Config.reload();
-        DatabaseConfig.reload();
-        commandSender.sendMiniMessage("<green>Reloaded AltitudeParticles config.</green>", null);
+        if (!(commandSender instanceof Player player)) {
+            commandSender.sendMiniMessage(Config.NO_CONSOLE, null);
+            return true;
+        }
+        new OpenParticleGUI(player).open(player);
         return true;
     }
 
     @Override
     public String getName() {
-        return "reload";
+        return "gui";
     }
 
     @Override
@@ -30,6 +33,6 @@ public class CommandReload extends SubCommand {
 
     @Override
     public String getHelpMessage() {
-        return Config.RELOAD_HELP_MESSAGE;
+        return Config.GUI_HELP_MESSAGE;
     }
 }

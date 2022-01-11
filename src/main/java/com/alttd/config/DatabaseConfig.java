@@ -1,11 +1,12 @@
 package com.alttd.config;
 
+import com.alttd.database.Database;
+
 import java.io.File;
 
 public class DatabaseConfig extends AbstractConfig {
 
     static DatabaseConfig config;
-    static int version;
     public DatabaseConfig() {
         super(new File(System.getProperty("user.home") + File.separator + "share" + File.separator + "configs"
                 + File.separator + "AltitudeParticles"), "database.yml");
@@ -13,7 +14,7 @@ public class DatabaseConfig extends AbstractConfig {
 
     public static void reload() {
         config = new DatabaseConfig();
-        config.readConfig(Config.class, null);
+        config.readConfig(DatabaseConfig.class, null);
     }
 
     public static String DRIVER = "mysql";

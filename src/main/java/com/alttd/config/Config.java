@@ -21,12 +21,14 @@ public final class Config extends AbstractConfig {
 
     public static String HELP_MESSAGE_WRAPPER = "<gold>AltitudeParticles help:\n<commands></gold>";
     public static String HELP_MESSAGE = "<green>Show this menu: <gold>/apart help</gold></green>";
-    public static String RELOAD_MESSAGE = "<green>Reload configs: <gold>/apart reload</gold></green>";
+    public static String RELOAD_HELP_MESSAGE = "<green>Reload configs: <gold>/apart reload</gold></green>";
+    public static String GUI_HELP_MESSAGE = "<green>Open GUI: <gold>/apart</gold> or <gold>/apart gui</gold>";
 
     private static void loadHelp() {
         HELP_MESSAGE_WRAPPER = config.getString("help.help-wrapper", HELP_MESSAGE_WRAPPER);
         HELP_MESSAGE = config.getString("help.help", HELP_MESSAGE);
-        RELOAD_MESSAGE = config.getString("help.reload", RELOAD_MESSAGE);
+        RELOAD_HELP_MESSAGE = config.getString("help.reload", RELOAD_HELP_MESSAGE);
+        GUI_HELP_MESSAGE = config.getString("help.gui", GUI_HELP_MESSAGE);
     }
 
     public static String NO_PERMISSION = "<red>You do not have permission to do that.</red>";
@@ -38,6 +40,25 @@ public final class Config extends AbstractConfig {
     }
 
     private static void loadMessages() {
+    }
+
+    public static String PARTICLE_TYPE_BUTTON_NAME = "<gold><name></gold>";
+    public static String PARTICLE_TYPE_GUI_NAME = "<red>AltitudeParticles</red>";
+    private static void loadGUIText() {
+        config.getString("gui-text.particle-type-button-name", PARTICLE_TYPE_BUTTON_NAME);
+        config.getString("gui-text.particles-type-gui-name", PARTICLE_TYPE_GUI_NAME);
+    }
+
+    public static String SEE_OTHERS_ON = "<green>Particles visible</green>";
+    public static String SEE_OTHERS_ON_DESC = "<dark_aqua>Click to hide particles</dark_aqua>";
+    public static String SEE_OTHERS_OFF = "<red>Particles hidden</red>";
+    public static String SEE_OTHERS_OFF_DESC = "<dark_aqua>Click to show particles</dark_aqua>";
+    public static String PARTICLES_ON = "<green>Particles on</green>";
+    public static String PARTICLES_ON_DESC = "<dark_aqua>Click to disable particles</dark_aqua>";
+    public static String PARTICLES_OFF = "<red>Particles off</red>";
+    public static String PARTICLES_OFF_DESC = "<dark_aqua>Click to enable particles</dark_aqua>";
+    private static void loadGUIButtons() {
+
     }
 
     public static boolean DEBUG = false;

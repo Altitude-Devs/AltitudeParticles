@@ -32,7 +32,8 @@ public class Database {
         }
 
         // Tables
-        createUserPointsTable();
+        createActiveParticlesTable();
+        createUserSettingsTable();
     }
 
     /**
@@ -61,13 +62,30 @@ public class Database {
         }
     }
 
-    private static void createUserPointsTable() {
+    private static void createActiveParticlesTable() {
         try {
             String sql = "CREATE TABLE IF NOT EXISTS active_particles(" +
                     "uuid VARCHAR(36) NOT NULL, " +
                     "particle_type VARCHAR(36) NOT NULL, " +
                     "particle_id VARCHAR(36) NOT NULL, " +
                     "PRIMARY KEY (uuid, particle_type)" +
+                    ")";
+            connection.prepareStatement(sql).executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.severe("Error while trying to create user point table");
+            Logger.severe("Shutting down AltitudeParticles");
+            Bukkit.getPluginManager().disablePlugin(AltitudeParticles.getInstance());
+        }
+    }
+
+    private static void createUserSettingsTable() {
+        try {
+            String sql = "CREATE TABLE IF NOT EXISTS user_settings(" +
+                    "uuid VARCHAR(36) NOT NULL, " +
+                    "particles_active BIT(1) NOT NULL DEFAULT b'1', " +
+                    "seeing_particles BIT(1) NOT NULL DEFAULT b'1', " +
+                    "PRIMARY KEY (uuid)" +
                     ")";
             connection.prepareStatement(sql).executeUpdate();
         } catch (SQLException e) {
