@@ -39,14 +39,12 @@ public class OpenParticleGUI extends DefaultGUI {
             setItem(i++, particlesType.getItemStack(), new EnterParticleMenu(particlesType));
         }
         PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
-        if (playerSettings == null)
-            return;
-        setItem(17, playerSettings.isSeeingParticles() ? seeOthersOn : seeOthersOff, new ToggleSeeParticles(this, playerSettings));
+        setItem(25, playerSettings.isSeeingParticles() ? seeOthersOn : seeOthersOff, new ToggleSeeParticles(this, playerSettings));
         setItem(26, playerSettings.hasActiveParticles() ? particlesOn : particlesOff, new ToggleParticlesActive(this, playerSettings));
     }
 
     public void updateSettingSlots(PlayerSettings playerSettings) {
-        setItem(17, playerSettings.isSeeingParticles() ? seeOthersOn : seeOthersOff, new ToggleSeeParticles(this, playerSettings));
+        setItem(25, playerSettings.isSeeingParticles() ? seeOthersOn : seeOthersOff, new ToggleSeeParticles(this, playerSettings));
         setItem(26, playerSettings.hasActiveParticles() ? particlesOn : particlesOff, new ToggleParticlesActive(this, playerSettings));
     }
 
@@ -80,13 +78,13 @@ public class OpenParticleGUI extends DefaultGUI {
         itemMeta.displayName(miniMessage.deserialize(Config.SEE_OTHERS_OFF_DESC));
         seeOthersOff.setItemMeta(itemMeta);
 
-        particlesOn = new ItemStack(Material.PLAYER_HEAD);
+        particlesOn = new ItemStack(Material.LIGHT);
         itemMeta = particlesOn.getItemMeta();
         itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_ON));
         itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_ON_DESC));
         particlesOn.setItemMeta(itemMeta);
 
-        particlesOff = new ItemStack(Material.PLAYER_HEAD);
+        particlesOff = new ItemStack(Material.BARRIER);
         itemMeta = particlesOff.getItemMeta();
         itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_OFF));
         itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_OFF_DESC));

@@ -57,8 +57,18 @@ public final class Config extends AbstractConfig {
     public static String PARTICLES_ON_DESC = "<dark_aqua>Click to disable particles</dark_aqua>";
     public static String PARTICLES_OFF = "<red>Particles off</red>";
     public static String PARTICLES_OFF_DESC = "<dark_aqua>Click to enable particles</dark_aqua>";
-    private static void loadGUIButtons() {
+    public static String BACK_BUTTON = "<yellow>Back</yellow>";
 
+    private static void loadGUIButtons() {
+        config.getString("gui-buttons.see-others-on", SEE_OTHERS_ON);
+        config.getString("gui-buttons.see-others-on-desc", SEE_OTHERS_ON_DESC);
+        config.getString("gui-buttons.see-others-off", SEE_OTHERS_OFF);
+        config.getString("gui-buttons.see-others-off-desc", SEE_OTHERS_OFF_DESC);
+        config.getString("gui-buttons.particles-on", PARTICLES_ON);
+        config.getString("gui-buttons.particles-on-desc", PARTICLES_ON_DESC);
+        config.getString("gui-buttons.particles-off", PARTICLES_OFF);
+        config.getString("gui-buttons.particles-off-desc", PARTICLES_OFF_DESC);
+        config.getString("gui-buttons.back-button", BACK_BUTTON);
     }
 
     public static boolean DEBUG = false;

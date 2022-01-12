@@ -1,11 +1,15 @@
-package com.alttd.gui;
+package com.alttd.listeners;
 
+import com.alttd.AltitudeParticles;
+import com.alttd.gui.GUI;
+import com.alttd.gui.GUIAction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class GUIListener implements Listener {
 
@@ -27,9 +31,14 @@ public class GUIListener implements Listener {
         event.setCancelled(true);
         GUIAction action = gui.getAction(event.getSlot());
 
-        if (action != null){
-            action.click(player);
-        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (action != null){
+                    action.click(player);
+                }
+            }
+        }.runTaskAsynchronously(AltitudeParticles.getInstance());
     }
 
     @EventHandler

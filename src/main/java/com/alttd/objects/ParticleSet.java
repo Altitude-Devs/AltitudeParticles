@@ -5,23 +5,28 @@ import com.alttd.frameSpawners.FrameSpawnerLocation;
 import com.alttd.frameSpawners.FrameSpawnerPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
 public class ParticleSet {
 
-    List<Frame> frames;
-    int delay, repeat;
-    APartType particlesType;
-    boolean shouldRepeat;
-    int ticksUntilNextFrame;
+    private final List<Frame> frames;
+    private final int delay, repeat;
+    private final APartType particlesType;
+    private final boolean shouldRepeat;
+    private final String permission;
+    private final ItemStack itemStack;
+    private int ticksUntilNextFrame;
 
-    public ParticleSet(List<Frame> frames, int delay, int repeat, APartType particlesType) {
+    public ParticleSet(List<Frame> frames, int delay, int repeat, APartType particlesType, String permission, ItemStack itemStack) {
         this.frames = frames;
         this.delay = delay;
         this.repeat = repeat;
         this.particlesType = particlesType;
         this.shouldRepeat = repeat < 0;
+        this.permission = permission;
+        this.itemStack = itemStack;
         ticksUntilNextFrame = delay;
     }
 
@@ -33,5 +38,13 @@ public class ParticleSet {
     public void run(Player player) {
         FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, frames, player);
         frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, delay);
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public ItemStack getItemStack() {
+        return itemStack;
     }
 }

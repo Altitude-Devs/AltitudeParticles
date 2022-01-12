@@ -11,7 +11,7 @@ public class Queries {
     public static PlayerSettings getPlayerSettings(UUID uuid) {
         String sql = "SELECT * FROM user_settings WHERE uuid = ?";
         try {
-            PreparedStatement preparedStatement = Database.connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, uuid.toString());
 
             ResultSet resultSet = preparedStatement.executeQuery();

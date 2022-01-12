@@ -14,10 +14,6 @@ public class Database {
     private static Database instance = null;
     public static Connection connection = null;
 
-    private Database() {
-
-    }
-
     public static Database getDatabase(){
         if (instance == null)
             instance = new Database();
@@ -57,9 +53,23 @@ public class Database {
 
             connection = DriverManager.getConnection(
                     "jdbc:mysql://" + DatabaseConfig.IP + ":" + DatabaseConfig.PORT + "/" + DatabaseConfig.DATABASE_NAME +
-                            "?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true",
+                            "?autoReconnect=true&useSSL=false",
                     DatabaseConfig.USERNAME, DatabaseConfig.PASSWORD);
         }
+    }
+
+    /**
+     * Returns the connection for the database
+     * @return Returns the connection.
+     */
+    public static Connection getConnection() {
+        try {
+            instance.openConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return connection;
     }
 
     private static void createActiveParticlesTable() {
