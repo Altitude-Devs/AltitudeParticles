@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -27,25 +28,26 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         new BukkitRunnable() {
             @Override
-            public void run() { //TODO uncomment
+            public void run() {
                 Player player = event.getPlayer();
-                new PlayerSettings(true, true, player.getUniqueId()); //TODO REMOVE
-//                UUID uuid = player.getUniqueId();
-//                PlayerSettings playerSettings = PlayerSettings.getPlayer(uuid);
-//                if (playerSettings == null) Queries.getPlayerSettings(uuid);
+                UUID uuid = player.getUniqueId();
+                PlayerSettings playerSettings = PlayerSettings.getPlayer(uuid);
 
-                PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
+                if (playerSettings == null)
+                    playerSettings = Queries.getPlayerSettings(uuid);
+
                 if (!playerSettings.hasActiveParticles())
                     return;
+
+                PlayerSettings finalPlayerSettings = playerSettings;
                 particlesToActivate.forEach(aPartType -> {
-                    ParticleSet particleSet = playerSettings.getParticles(aPartType);
+                    ParticleSet particleSet = finalPlayerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
                     particleSet.run(player.getLocation());
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());
-
     }
 
 }
