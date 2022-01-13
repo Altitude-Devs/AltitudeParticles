@@ -2,7 +2,6 @@ package com.alttd.gui.actions;
 
 import com.alttd.database.Queries;
 import com.alttd.gui.GUIAction;
-import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
 import org.bukkit.enchantments.Enchantment;
