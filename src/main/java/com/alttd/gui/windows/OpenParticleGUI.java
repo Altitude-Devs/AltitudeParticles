@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class OpenParticleGUI extends DefaultGUI {
@@ -57,7 +56,7 @@ public class OpenParticleGUI extends DefaultGUI {
             ItemStack itemStack = new ItemStack(particlesType.getMaterial());
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.displayName(miniMessage.deserialize(Config.PARTICLE_TYPE_BUTTON_NAME,
-                    TemplateResolver.resolving(Template.template("name", particlesType.getName()))));
+                    TemplateResolver.resolving(Template.template("name", particlesType.getDisplayName()))));
             itemStack.setItemMeta(itemMeta);
             particlesType.setItemStack(itemStack);
         });

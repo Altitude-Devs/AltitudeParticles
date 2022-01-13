@@ -19,7 +19,7 @@ public class EnterParticleMenu implements GUIAction {
 
     @Override
     public void click(Player player) {
-        ChooseParticleGUI chooseParticleGUI = new ChooseParticleGUI(aPartType, miniMessage.deserialize(aPartType.getName()), player);
+        ChooseParticleGUI chooseParticleGUI = new ChooseParticleGUI(aPartType, miniMessage.deserialize(aPartType.getDisplayName()), player);
         new BukkitRunnable() {
             @Override
             public void run() {
