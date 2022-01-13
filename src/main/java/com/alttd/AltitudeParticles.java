@@ -42,6 +42,9 @@ public class AltitudeParticles extends JavaPlugin {
         pluginManager.registerEvents(new PlayerJoinListener(APartType.TRAIL, APartType.HEAD), this);
         pluginManager.registerEvents(new BlockBreakListener(APartType.BREAK_PLACE_BLOCK), this);
         pluginManager.registerEvents(new BlockPlaceListener(APartType.BREAK_PLACE_BLOCK), this);
+        pluginManager.registerEvents(new RightClickListener(APartType.CLICK_BLOCK), this);
+        pluginManager.registerEvents(new KillListener(APartType.ATTACK), this);
+        pluginManager.registerEvents(new TeleportArriveListener(APartType.TELEPORT_ARRIVE), this);
         pluginManager.registerEvents(new DeathListener(APartType.DEATH), this);
         pluginManager.registerEvents(new GUIListener(), this);
     }
