@@ -1,5 +1,6 @@
 package com.alttd.gui.actions;
 
+import com.alttd.database.Queries;
 import com.alttd.gui.GUIAction;
 import com.alttd.gui.windows.OpenParticleGUI;
 import com.alttd.storage.PlayerSettings;
@@ -17,7 +18,8 @@ public class ToggleSeeParticles implements GUIAction {
 
     @Override
     public void click(Player player) {
-        playerSettings.toggleSeeingParticles();
+        boolean result = playerSettings.toggleSeeingParticles();
         openParticleGUI.updateSettingSlots(playerSettings);
+        Queries.setSeeingParticles(player.getUniqueId(), result);
     }
 }

@@ -44,16 +44,18 @@ public class PlayerSettings {
         return particlesActive;
     }
 
-    public void toggleParticlesActive() {
+    public boolean toggleParticlesActive() {
         particlesActive = !particlesActive;
+        return particlesActive;
     }
 
     public boolean isSeeingParticles() {
         return seeingParticles;
     }
 
-    public void toggleSeeingParticles() {
+    public boolean toggleSeeingParticles() {
         seeingParticles = !seeingParticles;
+        return seeingParticles;
     }
 
     public UUID getUuid() {
