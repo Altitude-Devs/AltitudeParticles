@@ -15,8 +15,6 @@ public class ParticleSet {
     private final int delay, repeat;
     private final APartType aPartType;
     private final String uniqueId;
-    private int ticksUntilNextFrame;
-    private final boolean shouldRepeat;
     private final String permission;
     private final ItemStack itemStack;
 
@@ -26,10 +24,8 @@ public class ParticleSet {
         this.repeat = repeat;
         this.aPartType = aPartType;
         this.uniqueId = uniqueId;
-        this.shouldRepeat = repeat < 0;
         this.permission = permission;
         this.itemStack = itemStack;
-        ticksUntilNextFrame = delay;
     }
 
     public void run(Location location) {
