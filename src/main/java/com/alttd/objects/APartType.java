@@ -35,6 +35,7 @@ public enum APartType { //TODO add description?
     APartType(String name, Material material, ItemStack itemStack) {
         this.name = name;
         this.material = material;
+        this.itemStack = itemStack;
     }
 
 }
