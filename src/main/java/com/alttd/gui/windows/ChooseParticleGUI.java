@@ -36,12 +36,23 @@ public class ChooseParticleGUI extends DefaultGUI {
         List<ParticleSet> availableParticles = ParticleStorage.getParticleSets(aPartType).stream()
                 .filter(particleSet -> player.hasPermission(particleSet.getPermission()))
                 .collect(Collectors.toList());
-
+        PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
         int i = 0;
         for (ParticleSet particleSet : availableParticles) {
             if (i >= 25) //leave the last 2 slots of the inventory open
                 return;
-            setItem(i++, particleSet.getItemStack(), new ActivateParticleSet(particleSet));
+            ItemStack itemStack = particleSet.getItemStack();
+            ParticleSet activeParticleSet = playerSettings.getParticles(aPartType);
+
+            if (activeParticleSet != null && playerSettings.getParticles(aPartType).equals(particleSet)) {
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                itemStack.setItemMeta(itemMeta);
+            }
+
+            setItem(i, itemStack, new ActivateParticleSet(particleSet, getInventory(), i));
+            i++;
         }
 
         setItem(26, backButton, clickingPlayer -> new BukkitRunnable() {
