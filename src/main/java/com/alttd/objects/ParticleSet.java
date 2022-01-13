@@ -53,4 +53,8 @@ public class ParticleSet {
     public ItemStack getItemStack() {
         return itemStack;
     }
+
+    public String getParticleId() {
+        return uniqueId;
+    }
 }

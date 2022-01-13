@@ -20,10 +20,12 @@ public class Test {
 
     static {
         MiniMessage miniMessage = MiniMessage.miniMessage();
-        itemStack = new ItemStack(Material.CHEST);
+        itemStack = new ItemStack(Material.BUCKET);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.displayName(miniMessage.deserialize("<gold>TestParticles</gold>"));
-        itemMeta.lore(List.of(miniMessage.deserialize("<dark_aqua>A particle to test\nthe functionality of this plugin</dark_aqua>")));
+        itemMeta.lore(List.of(
+                miniMessage.deserialize("<dark_aqua>A particle to test</dark_aqua>"),
+                miniMessage.deserialize("<dark_aqua>the functionality of this plugin</dark_aqua>")));
         itemStack.setItemMeta(itemMeta);
     }
 
