@@ -3,10 +3,8 @@ package com.alttd;
 import com.alttd.commands.CommandManager;
 import com.alttd.config.Config;
 import com.alttd.config.DatabaseConfig;
-import com.alttd.listeners.GUIListener;
-import com.alttd.listeners.BlockBreakListener;
-import com.alttd.listeners.BlockPlaceListener;
-import com.alttd.listeners.PlayerJoinListener;
+import com.alttd.listeners.*;
+import com.alttd.objects.APartType;
 import com.alttd.util.Logger;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,9 +36,10 @@ public class AltitudeParticles extends JavaPlugin {
 
     private void registerEvents() {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new PlayerJoinListener(), this);
-        pluginManager.registerEvents(new BlockBreakListener(), this);
-        pluginManager.registerEvents(new BlockPlaceListener(), this);
+        pluginManager.registerEvents(new PlayerJoinListener(APartType.TRAIL, APartType.HEAD), this);
+        pluginManager.registerEvents(new BlockBreakListener(APartType.BREAK_PLACE_BLOCK), this);
+        pluginManager.registerEvents(new BlockPlaceListener(APartType.BREAK_PLACE_BLOCK), this);
+        pluginManager.registerEvents(new DeathListener(APartType.DEATH), this);
         pluginManager.registerEvents(new GUIListener(), this);
     }
 
