@@ -19,7 +19,15 @@ public class ToggleSeeParticles implements GUIAction {
     @Override
     public void click(Player player) {
         boolean result = playerSettings.toggleSeeingParticles();
-        openParticleGUI.updateSettingSlots(playerSettings);
         Queries.setSeeingParticles(player.getUniqueId(), result);
+
+        if (result || !playerSettings.hasActiveParticles()) {
+            openParticleGUI.updateSettingSlots(playerSettings);
+            return;
+        }
+
+        boolean result2 = playerSettings.toggleParticlesActive();
+        openParticleGUI.updateSettingSlots(playerSettings);
+        Queries.setParticlesActive(player.getUniqueId(), result2);
     }
 }

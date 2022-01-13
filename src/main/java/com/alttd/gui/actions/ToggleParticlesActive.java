@@ -21,5 +21,12 @@ public class ToggleParticlesActive implements GUIAction {
         boolean result = playerSettings.toggleParticlesActive();
         openParticleGUI.updateSettingSlots(playerSettings);
         Queries.setParticlesActive(player.getUniqueId(), result);
+        if (!result || playerSettings.isSeeingParticles()) {
+            openParticleGUI.updateSettingSlots(playerSettings);
+            return;
+        }
+        boolean result2 = playerSettings.toggleSeeingParticles();
+        openParticleGUI.updateSettingSlots(playerSettings);
+        Queries.setParticlesActive(player.getUniqueId(), result2);
     }
 }
