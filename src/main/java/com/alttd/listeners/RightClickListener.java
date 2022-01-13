@@ -49,7 +49,7 @@ public class RightClickListener implements Listener {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(player.getLocation());
+                    particleSet.run(clickedBlock.getLocation());
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());
