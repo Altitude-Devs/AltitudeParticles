@@ -26,9 +26,10 @@ public class FrameSpawnerLocation extends BukkitRunnable {
     public void run() {
         if (iterator.hasNext())
             iterator.next().spawn(location);
-        else if (amount != 0)
+        else if (amount != 0) {
             iterator = frames.iterator();
-        else {
+            amount--;
+        } else {
             this.cancel();
             if (Config.DEBUG)
                 Logger.info("Stopped repeating task due to end of frames");
