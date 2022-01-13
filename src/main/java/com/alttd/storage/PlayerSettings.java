@@ -32,6 +32,14 @@ public class PlayerSettings {
         playerSettingsMap.put(uuid, this);
     }
 
+    public static PlayerSettings getPlayer(UUID uuid) {
+        return playerSettingsMap.get(uuid);
+    }
+
+    public static void removePlayer(UUID uuid) {
+        playerSettingsMap.remove(uuid);
+    }
+
     public boolean hasActiveParticles() {
         return particlesActive;
     }
@@ -58,9 +66,5 @@ public class PlayerSettings {
 
     public ParticleSet getParticles(APartType aPartType) {
         return particles.get(aPartType);
-    }
-
-    public static PlayerSettings getPlayer(UUID uuid) {
-        return playerSettingsMap.get(uuid);
     }
 }
