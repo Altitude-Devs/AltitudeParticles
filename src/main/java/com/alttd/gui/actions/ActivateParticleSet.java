@@ -2,6 +2,7 @@ package com.alttd.gui.actions;
 
 import com.alttd.database.Queries;
 import com.alttd.gui.GUIAction;
+import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
 import org.bukkit.enchantments.Enchantment;
@@ -38,6 +39,8 @@ public class ActivateParticleSet implements GUIAction {
             playerSettings.addParticle(particleSet.getAPartType(), particleSet);
         else
             playerSettings.removeParticle(particleSet.getAPartType());
+        if (enable && !particleSet.getAPartType().hasEvent())
+            particleSet.run(player, playerSettings);
     }
 
     private boolean updateItem(@NotNull ItemStack itemStack, Player player) {
