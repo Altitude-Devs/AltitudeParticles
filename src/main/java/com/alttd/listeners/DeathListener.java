@@ -6,6 +6,7 @@ import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,8 +21,10 @@ public class DeathListener implements Listener {
         particlesToActivate = List.of(particleTypes);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
+        if (event.isCancelled())
+            return;
         new BukkitRunnable() {
             @Override
             public void run() {

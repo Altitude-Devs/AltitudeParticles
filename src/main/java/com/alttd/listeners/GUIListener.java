@@ -5,6 +5,7 @@ import com.alttd.gui.GUI;
 import com.alttd.gui.GUIAction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -17,7 +18,7 @@ public class GUIListener implements Listener {
      * Handles clicking inside a gui
      * @param event gui click event
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onClick(InventoryClickEvent event){
         if (!(event.getWhoClicked() instanceof Player player)){
             return;

@@ -5,6 +5,7 @@ import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,8 +20,10 @@ public class BlockPlaceListener implements Listener {
         particlesToActivate = List.of(particleTypes);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (event.isCancelled())
+            return;
         new BukkitRunnable() {
             @Override
             public void run() {
