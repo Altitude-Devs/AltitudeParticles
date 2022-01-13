@@ -8,7 +8,7 @@ public enum APartType { //TODO add description?
     TRAIL("TRAIL", "Trail", Material.GOLD_INGOT, null, false),
     BREAK_PLACE_BLOCK("BREAK_PLACE_BLOCK", "Break/place block", Material.GRASS_BLOCK, null, true),
     DEATH("DEATH", "Death", Material.SKELETON_SKULL, null, true),
-    ATTACK("KILL", "Kill", Material.DIAMOND_SWORD, null, true),
+    KILL("KILL", "Kill", Material.DIAMOND_SWORD, null, true),
     CLICK_BLOCK("CLICK_BLOCK", "Right click block", Material.DIAMOND_BLOCK, null, true),
     TELEPORT_ARRIVE("TELEPORT", "Teleport", Material.DRAGON_EGG, null, true);
 
