@@ -66,6 +66,14 @@ public class PlayerSettings {
         return particles;
     }
 
+    public void addParticle(APartType aPartType, ParticleSet particleSet) {
+        particles.put(aPartType, particleSet);
+    }
+
+    public void removeParticle(APartType aPartType) {
+        particles.remove(aPartType);
+    }
+
     public ParticleSet getParticles(APartType aPartType) {
         return particles.get(aPartType);
     }
