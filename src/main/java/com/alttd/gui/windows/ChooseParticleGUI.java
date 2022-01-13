@@ -44,7 +44,7 @@ public class ChooseParticleGUI extends DefaultGUI {
         for (ParticleSet particleSet : availableParticles) {
             if (i >= 25) //leave the last 2 slots of the inventory open
                 return;
-            ItemStack itemStack = particleSet.getItemStack();
+            ItemStack itemStack = particleSet.getItemStack().clone();
             ParticleSet activeParticleSet = playerSettings.getParticles(aPartType);
 
             if (activeParticleSet != null && playerSettings.getParticles(aPartType).equals(particleSet)) {
