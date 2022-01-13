@@ -13,17 +13,19 @@ public class ParticleSet {
 
     private final List<Frame> frames;
     private final int delay, repeat;
-    private final APartType particlesType;
+    private final APartType aPartType;
+    private final String uniqueId;
+    private int ticksUntilNextFrame;
     private final boolean shouldRepeat;
     private final String permission;
     private final ItemStack itemStack;
-    private int ticksUntilNextFrame;
 
-    public ParticleSet(List<Frame> frames, int delay, int repeat, APartType particlesType, String permission, ItemStack itemStack) {
+    public ParticleSet(List<Frame> frames, int delay, int repeat, APartType aPartType, String uniqueId, String permission, ItemStack itemStack) {
         this.frames = frames;
         this.delay = delay;
         this.repeat = repeat;
-        this.particlesType = particlesType;
+        this.aPartType = aPartType;
+        this.uniqueId = uniqueId;
         this.shouldRepeat = repeat < 0;
         this.permission = permission;
         this.itemStack = itemStack;
@@ -38,6 +40,10 @@ public class ParticleSet {
     public void run(Player player) {
         FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, frames, player);
         frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, delay);
+    }
+
+    public APartType getAPartType() {
+        return aPartType;
     }
 
     public String getPermission() {
