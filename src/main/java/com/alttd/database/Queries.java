@@ -81,6 +81,19 @@ public class Queries {
         }
     }
 
+    public static void clearParticles(UUID uuid) {
+        String sql = "DELETE FROM active_particles " +
+                "WHERE uuid = ?";
+        try {
+            PreparedStatement preparedStatement = Database.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, uuid.toString());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static PlayerSettings getPlayerSettings(UUID uuid) {
         String sql = "SELECT * FROM user_settings WHERE uuid = ?";
         try {

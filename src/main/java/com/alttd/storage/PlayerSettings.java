@@ -1,5 +1,6 @@
 package com.alttd.storage;
 
+import com.alttd.database.Queries;
 import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 
@@ -76,5 +77,10 @@ public class PlayerSettings {
 
     public ParticleSet getParticles(APartType aPartType) {
         return particles.get(aPartType);
+    }
+
+    public void clearParticles() {
+        particles.clear();
+        Queries.clearParticles(uuid);
     }
 }

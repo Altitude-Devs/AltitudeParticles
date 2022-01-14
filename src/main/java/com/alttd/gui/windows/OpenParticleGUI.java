@@ -23,7 +23,7 @@ public class OpenParticleGUI extends DefaultGUI {
 
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
     private static final Component GUIName;
-    private static final ItemStack seeOthersOn, seeOthersOff, particlesOn, particlesOff;
+    private static final ItemStack seeOthersOn, seeOthersOff, particlesOn, particlesOff, clearAll;
 
     public OpenParticleGUI(Player player) {
         super(GUIName);
@@ -38,6 +38,12 @@ public class OpenParticleGUI extends DefaultGUI {
             setItem(i++, particlesType.getItemStack(), new EnterParticleMenu(particlesType));
         }
         PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
+        setItem(24, clearAll, player1 -> {
+            PlayerSettings pSettings = PlayerSettings.getPlayer(player1.getUniqueId());
+            if (pSettings == null)
+                return;
+            pSettings.clearParticles();
+        });
         setItem(25, playerSettings.isSeeingParticles() ? seeOthersOn : seeOthersOff, new ToggleSeeParticles(this, playerSettings));
         setItem(26, playerSettings.hasActiveParticles() ? particlesOn : particlesOff, new ToggleParticlesActive(this, playerSettings));
     }
@@ -88,5 +94,11 @@ public class OpenParticleGUI extends DefaultGUI {
         itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_OFF));
         itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_OFF_DESC));
         particlesOff.setItemMeta(itemMeta);
+
+        clearAll = new ItemStack(Material.BUCKET);
+        itemMeta = clearAll.getItemMeta();
+        itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_CLEAR));
+        itemMeta.displayName(miniMessage.deserialize(Config.PARTICLES_CLEAR_DESC));
+        clearAll.setItemMeta(itemMeta);
     }
 }

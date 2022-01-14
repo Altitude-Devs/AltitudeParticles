@@ -45,8 +45,8 @@ public final class Config extends AbstractConfig {
     public static String PARTICLE_TYPE_BUTTON_NAME = "<gold><name></gold>";
     public static String PARTICLE_TYPE_GUI_NAME = "<red>AltitudeParticles</red>";
     private static void loadGUIText() {
-        config.getString("gui-text.particle-type-button-name", PARTICLE_TYPE_BUTTON_NAME);
-        config.getString("gui-text.particles-type-gui-name", PARTICLE_TYPE_GUI_NAME);
+        PARTICLE_TYPE_BUTTON_NAME = config.getString("gui-text.particle-type-button-name", PARTICLE_TYPE_BUTTON_NAME);
+        PARTICLE_TYPE_GUI_NAME = config.getString("gui-text.particles-type-gui-name", PARTICLE_TYPE_GUI_NAME);
     }
 
     public static String SEE_OTHERS_ON = "<green>Particles visible</green>";
@@ -57,18 +57,22 @@ public final class Config extends AbstractConfig {
     public static String PARTICLES_ON_DESC = "<dark_aqua>Click to disable particles</dark_aqua>";
     public static String PARTICLES_OFF = "<red>Particles off</red>";
     public static String PARTICLES_OFF_DESC = "<dark_aqua>Click to enable particles</dark_aqua>";
+    public static String PARTICLES_CLEAR = "<yellow>Clear</yellow>";
+    public static String PARTICLES_CLEAR_DESC = "<dark_aqua>Clears all active particles</dark_aqua>";
     public static String BACK_BUTTON = "<yellow>Back</yellow>";
 
     private static void loadGUIButtons() {
-        config.getString("gui-buttons.see-others-on", SEE_OTHERS_ON);
-        config.getString("gui-buttons.see-others-on-desc", SEE_OTHERS_ON_DESC);
-        config.getString("gui-buttons.see-others-off", SEE_OTHERS_OFF);
-        config.getString("gui-buttons.see-others-off-desc", SEE_OTHERS_OFF_DESC);
-        config.getString("gui-buttons.particles-on", PARTICLES_ON);
-        config.getString("gui-buttons.particles-on-desc", PARTICLES_ON_DESC);
-        config.getString("gui-buttons.particles-off", PARTICLES_OFF);
-        config.getString("gui-buttons.particles-off-desc", PARTICLES_OFF_DESC);
-        config.getString("gui-buttons.back-button", BACK_BUTTON);
+        SEE_OTHERS_ON = config.getString("gui-buttons.see-others-on", SEE_OTHERS_ON);
+        SEE_OTHERS_ON_DESC = config.getString("gui-buttons.see-others-on-desc", SEE_OTHERS_ON_DESC);
+        SEE_OTHERS_OFF = config.getString("gui-buttons.see-others-off", SEE_OTHERS_OFF);
+        SEE_OTHERS_OFF_DESC = config.getString("gui-buttons.see-others-off-desc", SEE_OTHERS_OFF_DESC);
+        PARTICLES_ON = config.getString("gui-buttons.particles-on", PARTICLES_ON);
+        PARTICLES_ON_DESC = config.getString("gui-buttons.particles-on-desc", PARTICLES_ON_DESC);
+        PARTICLES_OFF = config.getString("gui-buttons.particles-off", PARTICLES_OFF);
+        PARTICLES_OFF_DESC = config.getString("gui-buttons.particles-off-desc", PARTICLES_OFF_DESC);
+        PARTICLES_CLEAR = config.getString("gui-buttons.particles-clear", PARTICLES_CLEAR);
+        PARTICLES_CLEAR_DESC = config.getString("gui-buttons.particles-clear-desc", PARTICLES_CLEAR_DESC);
+        BACK_BUTTON = config.getString("gui-buttons.back-button", BACK_BUTTON);
     }
 
     public static boolean DEBUG = false;
