@@ -33,9 +33,9 @@ public class Alpha {
 
         frameList.add(new Frame(frameOne()));
 
-        ParticleStorage.addParticleSet(APartType.KILL, new ParticleSet(frameList, 5, -1, 10, APartType.KILL, "UNIQUE_NAME_TEST", "apart.particle.test", itemStack));
-        ParticleStorage.addParticleSet(APartType.TELEPORT_ARRIVE, new ParticleSet(frameList, 5, 5, 40, APartType.TELEPORT_ARRIVE, "UNIQUE_NAME_TEST", "apart.particle.test", itemStack));
-        ParticleStorage.addParticleSet(APartType.CLICK_BLOCK, new ParticleSet(frameList, 5, 5, 40, APartType.CLICK_BLOCK, "UNIQUE_NAME_TEST", "apart.particle.test", itemStack));
+        ParticleStorage.addParticleSet(APartType.KILL, new ParticleSet(frameList, 5, 10, 10, APartType.KILL, "UNIQUE_NAME_ALPHA", "apart.particle.test", itemStack));
+        ParticleStorage.addParticleSet(APartType.TELEPORT_ARRIVE, new ParticleSet(frameList, 5, 10, 10, APartType.TELEPORT_ARRIVE, "UNIQUE_NAME_ALPHA", "apart.particle.test", itemStack));
+        ParticleStorage.addParticleSet(APartType.CLICK_BLOCK, new ParticleSet(frameList, 5, 10, 10, APartType.CLICK_BLOCK, "UNIQUE_NAME_ALPHA", "apart.particle.test", itemStack));
     }
 
 
