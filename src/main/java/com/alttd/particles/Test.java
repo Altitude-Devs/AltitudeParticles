@@ -1,6 +1,7 @@
 package com.alttd.particles;
 
 import com.alttd.objects.APartType;
+import com.alttd.objects.AParticle;
 import com.alttd.objects.Frame;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.ParticleStorage;
@@ -44,12 +45,12 @@ public class Test {
     }
 
 
-    public List<ParticleBuilder> frameOne() {
-        List<ParticleBuilder> list = new ArrayList<>();
-        list.add(new ParticleBuilder(Particle.TOTEM).offset(0, 2, 0));
-        list.add(new ParticleBuilder(Particle.TOTEM).offset(0, 2, 1));
-        list.add(new ParticleBuilder(Particle.TOTEM).offset(0, 2, 2));
-        list.add(new ParticleBuilder(Particle.TOTEM).offset(0, 2, 3));
+    public List<AParticle> frameOne() {
+        List<AParticle> list = new ArrayList<>();
+        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
         return list;
     }
 }

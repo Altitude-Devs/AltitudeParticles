@@ -1,19 +1,17 @@
 package com.alttd.objects;
 
 import com.alttd.storage.PlayerSettings;
-import com.destroystokyo.paper.ParticleBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Frame {
-    List<ParticleBuilder> particles;
+    List<AParticle> AParticles;
 
-    public Frame(List<ParticleBuilder> particles) {
-        this.particles = particles;
+    public Frame(List<AParticle> AParticles) {
+        this.AParticles = AParticles;
     }
 
     /**
@@ -22,16 +20,21 @@ public class Frame {
      * @param   location  Location to spawn particles at
      */
     public void spawn(Location location) {
-        particles.forEach(particleBuilder -> particleBuilder
-                .location(location)
-                .receivers(Bukkit.getOnlinePlayers().stream()
-                        .filter(player -> {
-                            PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
-                            if (playerSettings == null)
-                                return false;
-                            return playerSettings.isSeeingParticles();
-                        }).collect(Collectors.toList())
-                )
-                .spawn());
+        Location tmpLocation = location.clone();
+        AParticles.forEach(AParticle -> {
+            AParticle.particleBuilder()
+                    .location(tmpLocation.set(location.getX() + AParticle.x(), location.getY() + AParticle.y(), location.getZ() + AParticle.z()))
+                    .receivers(Bukkit.getOnlinePlayers().stream()
+                            .filter(player -> {
+                                PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
+                                if (playerSettings == null)
+                                    return false;
+                                if (!playerSettings.isSeeingParticles())
+                                    return false;
+                                return player.getLocation().distance(location) < 100;
+                            }).collect(Collectors.toList())
+                    )
+                    .spawn();
+        });
     }
 }
