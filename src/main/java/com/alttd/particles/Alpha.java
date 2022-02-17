@@ -47,7 +47,7 @@ public class Alpha {
         double[] zPts = {0.91, 0.86, 0.81, 0.76, 0.70, 0.63, 0.58, 0.52, 0.47, 0.42, 0.39, 0.38, 0.39, 0.42, 0.47, 0.52, 0.58, 0.63, 0.69, 0.75, 0.81, 0.86, 0.89, 0.90, 0.89, 0.87, 0.83, 0.79, 0.74, 0.69, 0.57, 0.51, 0.46, 0.42, 0.40, 0.40, 0.42, 0.47};
 
         for(int i = 0; i < xPts.length; i++) {
-            list.add(new AParticle(xPts[i] * 5, 2, zPts[i] * 5, new ParticleBuilder(Particle.REDSTONE).color(Color.GRAY).count(1)));
+            list.add(new AParticle(xPts[i] * 5, 2, zPts[i] * 5, 0.5, new ParticleBuilder(Particle.REDSTONE).color(Color.GRAY).count(1)));
         }
         return list;
     }

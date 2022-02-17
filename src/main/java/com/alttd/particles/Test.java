@@ -47,10 +47,10 @@ public class Test {
 
     public List<AParticle> frameOne() {
         List<AParticle> list = new ArrayList<>();
-        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
-        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
-        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
-        list.add(new AParticle(0, 2, 0, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, 0.3, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, 0.3, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, 0.3, new ParticleBuilder(Particle.TOTEM)));
+        list.add(new AParticle(0, 2, 0, 0.3, new ParticleBuilder(Particle.TOTEM)));
         return list;
     }
 }
