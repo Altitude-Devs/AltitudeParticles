@@ -4,6 +4,7 @@ import com.alttd.database.Queries;
 import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class PlayerSettings {
     private boolean particlesActive, seeingParticles;
     private final UUID uuid;
     private final HashMap<APartType, ParticleSet> particles;
+    private final HashMap<APartType, Long> lastUsed;
 
     public PlayerSettings(boolean particlesActive, boolean seeingParticles, UUID uuid, HashMap<APartType, ParticleSet> particles) {
         this.particlesActive = particlesActive;
@@ -22,6 +24,7 @@ public class PlayerSettings {
         this.particles = particles;
 
         playerSettingsMap.put(uuid, this);
+        lastUsed = new HashMap<>();
     }
 
     public PlayerSettings(boolean particlesActive, boolean seeingParticles, UUID uuid) {
@@ -31,6 +34,7 @@ public class PlayerSettings {
         this.particles = new HashMap<>();
 
         playerSettingsMap.put(uuid, this);
+        lastUsed = new HashMap<>();
     }
 
     public static PlayerSettings getPlayer(UUID uuid) {
@@ -82,5 +86,15 @@ public class PlayerSettings {
     public void clearParticles() {
         particles.clear();
         Queries.clearParticles(uuid);
+    }
+
+    public boolean canRun(APartType aPartType) {
+        if (!lastUsed.containsKey(aPartType))
+            return true;
+        return (lastUsed.get(aPartType) < new Date().getTime() - aPartType.getDelay());
+    }
+
+    public void run(APartType aPartType) {
+        lastUsed.put(aPartType, new Date().getTime());
     }
 }

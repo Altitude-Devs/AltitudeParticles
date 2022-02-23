@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ParticleSet {
 
@@ -32,16 +34,30 @@ public class ParticleSet {
         this.itemStack = itemStack;
     }
 
-    public void run(Location location) {
+    public void run(Location location, UUID uuid) {
+        if (tooSoon(uuid))
+            return;
         FrameSpawnerLocation frameSpawnerLocation = new FrameSpawnerLocation(repeat, repeatDelay, frames, location);
         frameSpawnerLocation.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
     }
 
-    public void run(Player player, PlayerSettings playerSettings) {
+    public void run(Player player, PlayerSettings playerSettings, UUID uuid) {
+        if (tooSoon(uuid))
+            return;
         if (Config.DEBUG)
             Logger.info("Starting particle set % for %.", uniqueId, player.getName());
         FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, repeatDelay, frames, player, playerSettings, aPartType, uniqueId);
         frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
+    }
+
+    private boolean tooSoon(UUID uuid) {
+        PlayerSettings ps = PlayerSettings.getPlayer(uuid);
+        if (ps.canRun(aPartType))
+        {
+            ps.run(aPartType);
+            return false;
+        }
+        return true;
     }
 
     public APartType getAPartType() {

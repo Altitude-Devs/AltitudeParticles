@@ -12,6 +12,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DeathListener implements Listener {
 
@@ -29,14 +30,15 @@ public class DeathListener implements Listener {
             @Override
             public void run() {
                 Player player = event.getPlayer();
-                PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
+                UUID uuid = player.getUniqueId();
+                PlayerSettings playerSettings = PlayerSettings.getPlayer(uuid);
                 if (!playerSettings.hasActiveParticles())
                     return;
                 particlesToActivate.forEach(aPartType -> {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(player.getLocation());
+                    particleSet.run(player.getLocation(), uuid);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());

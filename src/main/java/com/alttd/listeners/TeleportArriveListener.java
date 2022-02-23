@@ -4,6 +4,7 @@ import com.alttd.AltitudeParticles;
 import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,6 +13,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TeleportArriveListener implements Listener {
     private final List<APartType> particlesToActivate;
@@ -28,14 +30,15 @@ public class TeleportArriveListener implements Listener {
             @Override
             public void run() {
                 Player player = event.getPlayer();
-                PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
+                UUID uuid = player.getUniqueId();
+                PlayerSettings playerSettings = PlayerSettings.getPlayer(uuid);
                 if (!playerSettings.hasActiveParticles())
                     return;
                 particlesToActivate.forEach(aPartType -> {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(event.getTo());
+                    particleSet.run(event.getTo(), uuid);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());

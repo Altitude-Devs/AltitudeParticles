@@ -4,6 +4,8 @@ import com.alttd.AltitudeParticles;
 import com.alttd.objects.APartType;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -11,6 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class BlockBreakListener implements Listener {
 
@@ -27,14 +30,18 @@ public class BlockBreakListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                PlayerSettings playerSettings = PlayerSettings.getPlayer(event.getPlayer().getUniqueId());
+                Player player = event.getPlayer();
+                UUID uuid = player.getUniqueId();
+                PlayerSettings playerSettings = PlayerSettings.getPlayer(uuid);
                 if (!playerSettings.hasActiveParticles())
                     return;
                 particlesToActivate.forEach(aPartType -> {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(event.getBlock().getLocation());
+                    Location location = event.getBlock().getLocation();
+                    location.setYaw(player.getLocation().getYaw());
+                    particleSet.run(location, uuid);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());
