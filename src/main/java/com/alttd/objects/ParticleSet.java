@@ -42,7 +42,7 @@ public class ParticleSet {
     }
 
     public void run(Player player, PlayerSettings playerSettings, UUID uuid) {
-        if (tooSoon(uuid))
+        if (tooSoon(uuid) && !player.hasPermission("apart.bypass-cooldown"))
             return;
         if (Config.DEBUG)
             Logger.info("Starting particle set % for %.", uniqueId, player.getName());
