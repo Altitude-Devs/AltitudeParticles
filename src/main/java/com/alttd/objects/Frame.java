@@ -25,9 +25,9 @@ public class Frame {
         AParticles.forEach(AParticle -> {
             ThreadLocalRandom current = ThreadLocalRandom.current();
             AParticle.particleBuilder()
-                    .location(tmpLocation.set(location.getX() + AParticle.x() + AParticle.offset_range() == 0 ? 0 : current.nextDouble(-AParticle.offset_range(), AParticle.offset_range()),
-                            location.getY() + AParticle.y() + AParticle.offset_range() == 0 ? 0 : current.nextDouble(-AParticle.offset_range(), AParticle.offset_range()),
-                            location.getZ() + AParticle.z() + AParticle.offset_range() == 0 ? 0 : current.nextDouble(-AParticle.offset_range(), AParticle.offset_range())))
+                    .location(tmpLocation.set(location.getX() + AParticle.x() + ((AParticle.offset_range() == 0) ? 0 : current.nextDouble(-AParticle.offset_range(), AParticle.offset_range())),
+                            location.getY() + AParticle.y() + ((AParticle.offset_range() == 0) ? 0 : current.nextDouble(-AParticle.offset_range(), AParticle.offset_range())),
+                            location.getZ() + AParticle.z() + ((AParticle.offset_range() == 0) ? 0 : current.nextDouble(-AParticle.offset_range(), AParticle.offset_range()))))
                     .receivers(Bukkit.getOnlinePlayers().stream()
                             .filter(player -> {
                                 PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
