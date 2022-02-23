@@ -40,9 +40,7 @@ public class KillListener implements Listener {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    Location location = event.getEntity().getLocation();
-                    location.setYaw(player.getLocation().getYaw());
-                    particleSet.run(location, uuid);
+                    particleSet.run(event.getEntity().getLocation(), uuid);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());
