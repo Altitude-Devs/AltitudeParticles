@@ -5,6 +5,7 @@ dependencyResolutionManagement {
         mavenLocal()
         mavenCentral()
         maven("https://papermc.io/repo/repository/maven-public/") // Paper
+        maven("https://jitpack.io") //PremiumVanish
     }
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 }

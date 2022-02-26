@@ -6,6 +6,8 @@ import com.alttd.frameSpawners.FrameSpawnerLocation;
 import com.alttd.frameSpawners.FrameSpawnerPlayer;
 import com.alttd.storage.PlayerSettings;
 import com.alttd.util.Logger;
+import de.myzelyam.api.vanish.VanishAPI;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,20 +36,24 @@ public class ParticleSet {
         this.itemStack = itemStack;
     }
 
-    public void run(Location location, UUID uuid) {
-        if (tooSoon(uuid))
+    public void run(Location location, Player player) {
+        if (tooSoon(player.getUniqueId()) || isVanished(player))
             return;
         FrameSpawnerLocation frameSpawnerLocation = new FrameSpawnerLocation(repeat, repeatDelay, frames, location);
         frameSpawnerLocation.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
     }
 
-    public void run(Player player, PlayerSettings playerSettings, UUID uuid) {
-        if (tooSoon(uuid) && !player.hasPermission("apart.bypass-cooldown"))
+    public void run(Player player, PlayerSettings playerSettings) {
+        if (tooSoon(player.getUniqueId()) && !player.hasPermission("apart.bypass-cooldown"))
             return;
         if (Config.DEBUG)
             Logger.info("Starting particle set % for %.", uniqueId, player.getName());
         FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, repeatDelay, frames, player, playerSettings, aPartType, uniqueId);
         frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
+    }
+
+    private boolean isVanished(Player player) {
+        return VanishAPI.isInvisible(player) || player.getGameMode().equals(GameMode.SPECTATOR);
     }
 
     private boolean tooSoon(UUID uuid) {

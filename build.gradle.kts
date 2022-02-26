@@ -45,4 +45,5 @@ tasks {
 
 dependencies {
     compileOnly("com.alttd:Galaxy-API:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("com.github.LeonMangler:PremiumVanishAPI:2.7.11-2")
 }
