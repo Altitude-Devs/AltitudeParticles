@@ -39,7 +39,7 @@ public class BlockBreakListener implements Listener {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(event.getBlock().getLocation(), uuid);
+                    particleSet.run(event.getBlock().getLocation(), player);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());

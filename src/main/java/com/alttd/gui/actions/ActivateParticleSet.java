@@ -39,7 +39,7 @@ public class ActivateParticleSet implements GUIAction {
         else
             playerSettings.removeParticle(particleSet.getAPartType());
         if (enable && !particleSet.getAPartType().hasEvent() && playerSettings.hasActiveParticles())
-            particleSet.run(player, playerSettings, player.getUniqueId());
+            particleSet.run(player, playerSettings);
     }
 
     private boolean updateItem(@NotNull ItemStack itemStack, Player player) {

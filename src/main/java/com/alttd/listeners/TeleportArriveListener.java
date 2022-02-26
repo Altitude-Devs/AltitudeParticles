@@ -38,7 +38,7 @@ public class TeleportArriveListener implements Listener {
                     ParticleSet particleSet = playerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(event.getTo(), uuid);
+                    particleSet.run(event.getTo(), player);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());

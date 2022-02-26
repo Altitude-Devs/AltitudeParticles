@@ -43,7 +43,7 @@ public class PlayerJoinListener implements Listener {
                     ParticleSet particleSet = finalPlayerSettings.getParticles(aPartType);
                     if (particleSet == null)
                         return;
-                    particleSet.run(player, finalPlayerSettings, uuid);
+                    particleSet.run(player, finalPlayerSettings);
                 });
             }
         }.runTaskAsynchronously(AltitudeParticles.getInstance());
