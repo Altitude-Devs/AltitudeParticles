@@ -35,7 +35,8 @@ public class Frame {
                                     return false;
                                 if (!playerSettings.isSeeingParticles())
                                     return false;
-                                return player.getLocation().distance(location) < 100;
+                                Location playerLocation = player.getLocation();
+                                return location.getWorld().getUID().equals(playerLocation.getWorld().getUID()) && player.getLocation().distance(location) < 100;
                             }).collect(Collectors.toList())
                     )
                     .spawn();
