@@ -39,7 +39,7 @@ public class ParticleSet {
     public void run(Location location, Player player) {
         if (tooSoon(player.getUniqueId()) || isVanished(player))
             return;
-        FrameSpawnerLocation frameSpawnerLocation = new FrameSpawnerLocation(repeat, repeatDelay, frames, location);
+        FrameSpawnerLocation frameSpawnerLocation = new FrameSpawnerLocation(repeat, repeatDelay, frames, location, player.getLocation().getYaw());
         frameSpawnerLocation.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
     }
 

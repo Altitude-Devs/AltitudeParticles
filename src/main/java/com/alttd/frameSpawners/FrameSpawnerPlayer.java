@@ -49,7 +49,7 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
             return;
         }
         if (iterator.hasNext())
-            iterator.next().spawn(player.getLocation());
+            iterator.next().spawn(player.getLocation(), player.getLocation().getYaw());
         else if (amount != 0) {
             iterator = frames.iterator();
             amount--;
