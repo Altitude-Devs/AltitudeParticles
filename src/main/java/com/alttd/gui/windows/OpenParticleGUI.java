@@ -10,8 +10,8 @@ import com.alttd.storage.PlayerSettings;
 import com.alttd.util.Logger;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.Template;
-import net.kyori.adventure.text.minimessage.template.TemplateResolver;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -62,7 +62,7 @@ public class OpenParticleGUI extends DefaultGUI {
             ItemStack itemStack = new ItemStack(particlesType.getMaterial());
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.displayName(miniMessage.deserialize(Config.PARTICLE_TYPE_BUTTON_NAME,
-                    TemplateResolver.resolving(Template.template("name", particlesType.getDisplayName()))));
+                    TagResolver.resolver(Placeholder.parsed("name", particlesType.getDisplayName()))));
             itemStack.setItemMeta(itemMeta);
             particlesType.setItemStack(itemStack);
         });
