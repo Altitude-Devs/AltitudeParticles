@@ -16,7 +16,7 @@ public final class Config extends AbstractConfig {
         version = config.getInt("config-version", 1);
         config.set("config-version", 1);
 
-        config.readConfig(Config.class, null);
+        config.readConfig(config.getClass(), null);
     }
 
     public static String HELP_MESSAGE_WRAPPER = "<gold>AltitudeParticles help:\n<commands></gold>";

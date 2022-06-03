@@ -1,8 +1,10 @@
 package com.alttd.commands.subcommands;
 
+import com.alttd.AltitudeParticles;
 import com.alttd.commands.SubCommand;
 import com.alttd.config.Config;
 import com.alttd.config.DatabaseConfig;
+import com.alttd.config.ParticleConfig;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -12,8 +14,7 @@ public class CommandReload extends SubCommand {
 
     @Override
     public boolean onCommand(CommandSender commandSender, String[] args) {
-        Config.reload();
-        DatabaseConfig.reload();
+        AltitudeParticles.getInstance().reload();
         commandSender.sendMiniMessage("<green>Reloaded AltitudeParticles config.</green>", null);
         return true;
     }

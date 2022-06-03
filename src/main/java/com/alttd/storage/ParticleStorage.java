@@ -21,4 +21,8 @@ public class ParticleStorage {
     public static List<ParticleSet> getParticleSets(APartType aPartType) {
         return particles.getOrDefault(aPartType, new ArrayList<>());
     }
+
+    public static void clear() {
+        particles.clear();
+    }
 }

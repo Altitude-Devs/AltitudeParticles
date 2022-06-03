@@ -1,8 +1,10 @@
 package com.alttd;
 
 import com.alttd.commands.CommandManager;
+import com.alttd.commands.subcommands.CommandReload;
 import com.alttd.config.Config;
 import com.alttd.config.DatabaseConfig;
+import com.alttd.config.ParticleConfig;
 import com.alttd.database.Database;
 import com.alttd.listeners.*;
 import com.alttd.objects.APartType;
@@ -26,8 +28,7 @@ public class AltitudeParticles extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Config.reload();
-        DatabaseConfig.reload();
+        reload();
         Database.getDatabase().init();
         new CommandManager();
         registerEvents();
@@ -47,6 +48,12 @@ public class AltitudeParticles extends JavaPlugin {
         pluginManager.registerEvents(new TeleportArriveListener(APartType.TELEPORT_ARRIVE), this);
         pluginManager.registerEvents(new DeathListener(APartType.DEATH), this);
         pluginManager.registerEvents(new GUIListener(), this);
+    }
+
+    public void reload() {
+        Config.reload();
+        DatabaseConfig.reload();
+        ParticleConfig.reload();
     }
 
 }

@@ -14,7 +14,7 @@ public class DatabaseConfig extends AbstractConfig {
 
     public static void reload() {
         config = new DatabaseConfig();
-        config.readConfig(DatabaseConfig.class, null);
+        config.readConfig(config.getClass(), null);
     }
 
     public static String DRIVER = "mysql";
