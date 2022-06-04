@@ -42,16 +42,23 @@ public class ParticleConfig extends AbstractConfig {
             ConfigurationSection cs = particles.getConfigurationSection(key);
             if (cs == null)
                 continue;
-            APartType aPartType = APartType.valueOf(cs.getString("part-type"));
-            ParticleSet particleSet = new ParticleSet(
-                    getAParticle(cs),
-                    cs.getInt("frame-delay"),
-                    cs.getInt("repeat"),
-                    cs.getInt("repeat-delay"),
-                    aPartType,
-                    cs.getString("unique-name"),
-                    cs.getString("permission"),
-                    new ItemStack(Material.valueOf(cs.getString("material"))));
+            APartType aPartType;
+            ParticleSet particleSet;
+            try {
+                aPartType = APartType.valueOf(cs.getString("part-type"));
+                particleSet = new ParticleSet(
+                        getAParticle(cs),
+                        cs.getInt("frame-delay"),
+                        cs.getInt("repeat"),
+                        cs.getInt("repeat-delay"),
+                        aPartType,
+                        cs.getString("unique-name"),
+                        cs.getString("permission"),
+                        new ItemStack(Material.valueOf(cs.getString("material"))));
+            } catch (Exception e) {//Im lazy rn sorry
+                e.printStackTrace();
+                continue;
+            }
             ParticleStorage.addParticleSet(aPartType, particleSet);
         }
     }
