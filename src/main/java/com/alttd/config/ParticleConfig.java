@@ -48,6 +48,8 @@ public class ParticleConfig extends AbstractConfig {
                 aPartType = APartType.valueOf(cs.getString("part-type"));
                 particleSet = new ParticleSet(
                         getAParticle(cs),
+                        cs.getString("name"),
+                        cs.getStringList("lore"),
                         cs.getInt("frame-delay"),
                         cs.getInt("repeat"),
                         cs.getInt("repeat-delay"),
@@ -97,6 +99,8 @@ public class ParticleConfig extends AbstractConfig {
         cs.getString("particle");
         ConfigurationSection color = cs.getConfigurationSection("color");
         ParticleBuilder particle = new ParticleBuilder(Particle.valueOf(cs.getString("particle")));
+//        Class<?> dataType = particle.particle().getDataType();
+//        Logger.warning(dataType.getSimpleName());
         particle.extra(cs.getDouble("extra"));
         if (color != null) {
             particle = particle.color(color.getInt("r"), color.getInt("g"), color.getInt("b"));

@@ -7,14 +7,16 @@ import com.alttd.frameSpawners.FrameSpawnerPlayer;
 import com.alttd.storage.PlayerSettings;
 import com.alttd.util.Logger;
 import de.myzelyam.api.vanish.VanishAPI;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class ParticleSet {
 
@@ -25,7 +27,8 @@ public class ParticleSet {
     private final String permission;
     private final ItemStack itemStack;
 
-    public ParticleSet(List<Frame> frames, int frameDelay, int repeat, int repeatDelay, APartType aPartType, String uniqueId, String permission, ItemStack itemStack) {
+    public ParticleSet(List<Frame> frames, String name, List<String> lore, int frameDelay, int repeat, int repeatDelay, APartType aPartType, String uniqueId, String permission, ItemStack itemStack) {
+        MiniMessage miniMessage = MiniMessage.miniMessage();
         this.frames = frames;
         this.frameDelay = frameDelay;
         this.repeat = repeat;
@@ -33,6 +36,10 @@ public class ParticleSet {
         this.aPartType = aPartType;
         this.uniqueId = uniqueId;
         this.permission = permission;
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.displayName(miniMessage.deserialize(name));
+        itemMeta.lore(lore.stream().map(miniMessage::deserialize).collect(Collectors.toList()));
+        itemStack.setItemMeta(itemMeta);
         this.itemStack = itemStack;
     }
 
