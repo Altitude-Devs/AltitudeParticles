@@ -12,14 +12,12 @@ import java.util.List;
 public class FrameSpawnerLocation extends BukkitRunnable {
 
     private int amount;
-    private final long repeatDelay;
     private final List<Frame> frames;
     private Iterator<Frame> iterator;
     private final Location location;
     private final float rotation;
-    public FrameSpawnerLocation(int amount, int repeatDelay, List<Frame> frames, Location location, float rotation) {
+    public FrameSpawnerLocation(int amount, List<Frame> frames, Location location, float rotation) {
         this.amount = amount;
-        this.repeatDelay = (repeatDelay * 1000L) / 20;
         this.frames = frames;
         this.iterator = frames.iterator();
         this.location = location;
