@@ -56,6 +56,7 @@ public class ParticleConfig extends AbstractConfig {
                         aPartType,
                         cs.getString("unique-name"),
                         cs.getString("permission"),
+                        cs.getString("package-permission"),
                         new ItemStack(Material.valueOf(cs.getString("material"))));
             } catch (Exception e) {//Im lazy rn sorry
                 e.printStackTrace();

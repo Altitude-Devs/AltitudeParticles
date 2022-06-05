@@ -25,9 +25,10 @@ public class ParticleSet {
     private final APartType aPartType;
     private final String uniqueId;
     private final String permission;
+    private final String packPermission;
     private final ItemStack itemStack;
 
-    public ParticleSet(List<Frame> frames, String name, List<String> lore, int frameDelay, int repeat, int repeatDelay, APartType aPartType, String uniqueId, String permission, ItemStack itemStack) {
+    public ParticleSet(List<Frame> frames, String name, List<String> lore, int frameDelay, int repeat, int repeatDelay, APartType aPartType, String uniqueId, String permission, String packPermission,ItemStack itemStack) {
         MiniMessage miniMessage = MiniMessage.miniMessage();
         this.frames = frames;
         this.frameDelay = frameDelay;
@@ -36,6 +37,7 @@ public class ParticleSet {
         this.aPartType = aPartType;
         this.uniqueId = uniqueId;
         this.permission = permission;
+        this.packPermission = packPermission;
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.displayName(miniMessage.deserialize(name));
         itemMeta.lore(lore.stream().map(miniMessage::deserialize).collect(Collectors.toList()));
@@ -79,6 +81,10 @@ public class ParticleSet {
 
     public String getPermission() {
         return permission;
+    }
+
+    public String getPackPermission() {
+        return packPermission;
     }
 
     public ItemStack getItemStack() {

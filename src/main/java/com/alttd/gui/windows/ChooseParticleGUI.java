@@ -37,7 +37,7 @@ public class ChooseParticleGUI extends DefaultGUI {
     public ChooseParticleGUI(APartType aPartType, Component name, Player player) {
         super(name);
         List<ParticleSet> availableParticles = ParticleStorage.getParticleSets(aPartType).stream()
-                .filter(particleSet -> player.hasPermission(particleSet.getPermission()))
+                .filter(particleSet -> player.hasPermission(particleSet.getPackPermission()) || player.hasPermission(particleSet.getPermission()))
                 .collect(Collectors.toList());
         PlayerSettings playerSettings = PlayerSettings.getPlayer(player.getUniqueId());
         int i = 0;
