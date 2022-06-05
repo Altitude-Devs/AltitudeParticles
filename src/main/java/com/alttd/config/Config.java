@@ -80,4 +80,21 @@ public final class Config extends AbstractConfig {
     private static void loadSettings() {
         DEBUG = config.getBoolean("settings.debug", DEBUG);
     }
+
+    public static int HEAD_COOL_DOWN = 0;
+    public static int TRAIL_COOL_DOWN = 0;
+    public static int BREAK_PLACE_BLOCK_COOL_DOWN = 5;
+    public static int DEATH_COOL_DOWN = 30;
+    public static int KILL_COOL_DOWN = 5;
+    public static int CLICK_BLOCK_COOL_DOWN = 60;
+    public static int TELEPORT_ARRIVE_COOL_DOWN = 5;
+    private static void loadCoolDown() {
+        HEAD_COOL_DOWN = config.getInt("cool_down.head", HEAD_COOL_DOWN);
+        TRAIL_COOL_DOWN = config.getInt("cool_down.trail", TRAIL_COOL_DOWN);
+        BREAK_PLACE_BLOCK_COOL_DOWN = config.getInt("cool_down.break_place-block", BREAK_PLACE_BLOCK_COOL_DOWN);
+        DEATH_COOL_DOWN = config.getInt("cool_down.death", DEATH_COOL_DOWN);
+        KILL_COOL_DOWN = config.getInt("cool_down.kill", KILL_COOL_DOWN);
+        CLICK_BLOCK_COOL_DOWN = config.getInt("cool_down.click-block", CLICK_BLOCK_COOL_DOWN);
+        TELEPORT_ARRIVE_COOL_DOWN = config.getInt("cool_down.teleport-arrive", TELEPORT_ARRIVE_COOL_DOWN);
+    }
 }
