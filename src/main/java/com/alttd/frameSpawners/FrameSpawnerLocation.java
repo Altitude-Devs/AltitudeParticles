@@ -34,13 +34,6 @@ public class FrameSpawnerLocation extends BukkitRunnable {
             iterator = frames.iterator();
             if (amount > 0)
                 amount--;
-            if (repeatDelay <= 0)
-                return;
-            try { //Wait before repeating the frames
-                Thread.sleep(repeatDelay); //TODO figure out why this isn't working and fix it
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         } else {
             this.cancel();
             if (Config.DEBUG)
