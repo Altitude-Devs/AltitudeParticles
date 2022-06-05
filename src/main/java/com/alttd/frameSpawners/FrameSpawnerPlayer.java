@@ -42,7 +42,7 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
             return;
         }
         ParticleSet activeParticleSet = playerSettings.getParticles(aPartType);
-        if (activeParticleSet == null || !activeParticleSet.getParticleId().equalsIgnoreCase(uniqueId) || playerSettings.hasActiveParticles()) {
+        if (activeParticleSet == null || !activeParticleSet.getParticleId().equalsIgnoreCase(uniqueId) || !playerSettings.hasActiveParticles()) {
             this.cancel();
             if (Config.DEBUG)
                 Logger.info("Stopped repeating task due to player switching/disabling particles.");

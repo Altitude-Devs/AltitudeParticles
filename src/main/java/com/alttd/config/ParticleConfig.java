@@ -97,6 +97,7 @@ public class ParticleConfig extends AbstractConfig {
         cs.getString("particle");
         ConfigurationSection color = cs.getConfigurationSection("color");
         ParticleBuilder particle = new ParticleBuilder(Particle.valueOf(cs.getString("particle")));
+        particle.extra(cs.getDouble("extra"));
         if (color != null) {
             particle = particle.color(color.getInt("r"), color.getInt("g"), color.getInt("b"));
         }

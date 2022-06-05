@@ -32,7 +32,8 @@ public class FrameSpawnerLocation extends BukkitRunnable {
             iterator.next().spawn(location, rotation);
         else if (amount != 0) {
             iterator = frames.iterator();
-            amount--;
+            if (amount > 0)
+                amount--;
             if (repeatDelay <= 0)
                 return;
             try { //Wait before repeating the frames
