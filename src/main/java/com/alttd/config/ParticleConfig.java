@@ -1,5 +1,6 @@
 package com.alttd.config;
 
+
 import com.alttd.objects.APartType;
 import com.alttd.objects.AParticle;
 import com.alttd.objects.Frame;
@@ -7,105 +8,128 @@ import com.alttd.objects.ParticleSet;
 import com.alttd.storage.ParticleStorage;
 import com.alttd.util.Logger;
 import com.destroystokyo.paper.ParticleBuilder;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HexFormat;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ParticleConfig extends AbstractConfig {
+public class ParticleConfig {
 
-    static ParticleConfig config;
-    public ParticleConfig() {
-        super(new File(System.getProperty("user.home") + File.separator + "share" + File.separator + "configs" + File.separator + "AltitudeParticles"), "particles.yml");
+    private static final File particlesDir = new File(System.getProperty("user.home") + File.separator + "share" + File.separator + "configs"
+            + File.separator + "AltitudeParticles" + File.separator + "particles");
+    private static ParticleConfig instance = null;
+
+    private static ParticleConfig getInstance() {
+        if (instance == null)
+            instance = new ParticleConfig();
+        return instance;
+    }
+
+    /**
+     * Finds all files in particles directory that are valid .json files
+     * @return all files found
+     */
+    private List<File> getJsonFiles() {
+        List<File> files = new ArrayList<>();
+        if (!particlesDir.exists()) {
+            if (!particlesDir.mkdir())
+                Logger.warning("Unable to create particles directory");
+            return files;
+        }
+        if (!particlesDir.isDirectory()) {
+            Logger.warning("Particles directory doesn't exist (it's a file??)");
+            return files;
+        }
+        File[] validFiles = particlesDir.listFiles(file -> file.isFile() && file.canRead() && file.getName().endsWith(".json"));
+        if (validFiles == null)
+            return files;
+        files.addAll(List.of(validFiles));
+        return files;
+    }
+
+    public ParticleSet loadParticle(JSONObject jsonObject) throws Exception {
+        String particleName = (String) jsonObject.get("particle_name");
+        String displayName = (String) jsonObject.get("display_name");
+        APartType aPartType = APartType.valueOf((String) jsonObject.get("particle_type"));
+        String lore = (String) jsonObject.get("lore");
+        ItemStack displayItem = new ItemStack(Material.valueOf((String) jsonObject.get("display_item")));
+        String permission = (String) jsonObject.get("permission");
+        String packagePermission = (String) jsonObject.get("package_permission");
+        int frameDelay = (int) (long) jsonObject.get("frame_delay");
+        int repeat = (int) (long)  jsonObject.get("repeat");
+        int repeatDelay = (int) (long) jsonObject.get("repeat_delay");
+        double randomOffset = (double) jsonObject.get("random_offset");
+        JSONObject frames = (JSONObject) jsonObject.get("frames");
+        List<Frame> loadedFrames = new ArrayList<>();
+        for (Object key : frames.keySet()) {
+            Object o = frames.get(key);
+            List<AParticle> aParticleList = new ArrayList<>();
+            for (Object o1 : ((JSONArray) o)) {
+                JSONObject pData = (JSONObject) o1;
+                Particle particleType = Particle.valueOf((String) pData.get("particle_type"));
+
+                double x = (double) pData.get("x");
+                double y = (double) pData.get("y");
+                double z = (double) pData.get("z");
+                ParticleBuilder particleBuilder = new ParticleBuilder(particleType);
+                if (particleType.getDataType().equals(Particle.DustOptions.class)) {
+                    int rgb = HexFormat.fromHexDigits((String) pData.get("color"));
+                    particleBuilder.data(new Particle.DustOptions(Color.fromBGR(rgb), 1));
+                } else if (particleType.getDataType().equals(MaterialData.class)) {
+                    //TODO implement
+                } else if (particleType.getDataType().equals(BlockData.class)) {
+                    //TODO implement
+                } else if (particleType.getDataType().equals(Integer.class)) {
+                    //TODO implement
+                } else if (particleType.getDataType().equals(Float.class)) {
+                    //TODO implement
+                } else if (particleType.getDataType().equals(Particle.DustTransition.class)) {
+                    //TODO implement
+                } else if (particleType.getDataType().equals(ItemStack.class)) {
+                    //TODO implement
+                }
+                aParticleList.add(new AParticle(x, y, z, randomOffset, particleBuilder));
+            }
+            loadedFrames.add(new Frame(aParticleList));
+        }
+        return new ParticleSet(loadedFrames, displayName, List.of(lore.split("\n")), frameDelay, repeat, repeatDelay, aPartType, particleName, permission, packagePermission, displayItem);
     }
 
     public static void reload() {
-        config = new ParticleConfig();
-
-        config.readConfig(config.getClass(), null);
-    }
-
-    private static void loadParticles() {
         ParticleStorage.clear();
-        ConfigurationSection particles = config.getConfigurationSection("particles");
-        if (particles == null) {
-            Logger.warning("No particles in particles config");
-            return;
-        }
-        for (String key : particles.getKeys(false)) {
-            ConfigurationSection cs = particles.getConfigurationSection(key);
-            if (cs == null)
-                continue;
-            APartType aPartType;
-            ParticleSet particleSet;
+        ParticleConfig instance = getInstance();
+        for (File file : instance.getJsonFiles()) {
+            JSONParser parser = new JSONParser();
             try {
-                aPartType = APartType.valueOf(cs.getString("part-type"));
-                particleSet = new ParticleSet(
-                        getAParticle(cs),
-                        cs.getString("name"),
-                        cs.getStringList("lore"),
-                        cs.getInt("frame-delay"),
-                        cs.getInt("repeat"),
-                        cs.getInt("repeat-delay"),
-                        aPartType,
-                        cs.getString("unique-name"),
-                        cs.getString("permission"),
-                        cs.getString("package-permission"),
-                        new ItemStack(Material.valueOf(cs.getString("material"))));
-            } catch (Exception e) {//Im lazy rn sorry
+                Object obj = parser.parse(new FileReader(file));
+                ParticleSet particleSet = instance.loadParticle((JSONObject) obj);
+                ParticleStorage.addParticleSet(particleSet.getAPartType(), particleSet);
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                continue;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
-            ParticleStorage.addParticleSet(aPartType, particleSet);
         }
-    }
 
-    private static List<Frame> getAParticle(ConfigurationSection configurationSection) {
-        List<Frame> list = new ArrayList<>();
-        ConfigurationSection frames = configurationSection.getConfigurationSection("frames");
-        if (frames == null) {
-            Logger.warning("Unable to find frames for something");
-            return null;
-        }
-        for (String key : frames.getKeys(false)) {
-            ConfigurationSection cs = frames.getConfigurationSection(key);
-            if (cs == null) {
-                Logger.warning("Unable to load particle %", key);
-                return null;
-            }
-            int offset = frames.getInt("offset-range");
-            List<AParticle> aParticleList = new ArrayList<>();
-            List<Double> x = Arrays.stream(cs.getString("x").split(", ")).map(Double::valueOf).collect(Collectors.toList());
-            List<Double> y = Arrays.stream(cs.getString("y").split(", ")).map(Double::valueOf).collect(Collectors.toList());
-            List<Double> z = Arrays.stream(cs.getString("z").split(", ")).map(Double::valueOf).collect(Collectors.toList());
-            if (x.size() != y.size() || y.size() != z.size()) {
-                Logger.warning("Unable to load % xyz is not the same length", key);
-            }
-            ParticleBuilder particleBuilder = getParticleBuilder(cs);
-            for (int i = 0; i < x.size(); i++) {
-                aParticleList.add(new AParticle(x.get(i), y.get(i), z.get(i), offset, particleBuilder));
-            }
-            list.add(new Frame(aParticleList));
-        }
-        return list;
-    }
-
-    private static ParticleBuilder getParticleBuilder(ConfigurationSection cs) {
-        cs.getString("particle");
-        ConfigurationSection color = cs.getConfigurationSection("color");
-        ParticleBuilder particle = new ParticleBuilder(Particle.valueOf(cs.getString("particle")));
-//        Class<?> dataType = particle.particle().getDataType();
-//        Logger.warning(dataType.getSimpleName());
-        particle.extra(cs.getDouble("extra"));
-        if (color != null) {
-            particle = particle.color(color.getInt("r"), color.getInt("g"), color.getInt("b"));
-        }
-        return particle.count(cs.getInt("count", 1));
+        //TODO implement
     }
 }
+
