@@ -1,5 +1,6 @@
 package com.alttd.frameSpawners;
 
+import com.alttd.AltitudeParticles;
 import com.alttd.config.Config;
 import com.alttd.objects.APartType;
 import com.alttd.objects.Frame;
@@ -21,7 +22,8 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
     private final PlayerSettings playerSettings;
     private final APartType aPartType;
     private final String uniqueId;
-    public FrameSpawnerPlayer(int amount, List<Frame> frames, Player player, PlayerSettings playerSettings, APartType aPartType, String uniqueId) {
+    private final int frameDelay;
+    public FrameSpawnerPlayer(int amount, List<Frame> frames, int frameDelay, Player player, PlayerSettings playerSettings, APartType aPartType, String uniqueId) {
         this.amount = amount;
         this.frames = frames;
         this.iterator = frames.iterator();
@@ -29,6 +31,7 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
         this.playerSettings = playerSettings;
         this.aPartType = aPartType;
         this.uniqueId = uniqueId;
+        this.frameDelay = frameDelay;
     }
 
     @Override
@@ -46,15 +49,21 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
                 Logger.info("Stopped repeating task due to player switching/disabling particles.");
             return;
         }
-        if (iterator.hasNext())
-            iterator.next().spawn(player.getLocation(), player.getLocation().getYaw());
-        else if (amount != 0) {
-            iterator = frames.iterator();
-            amount--;
-        } else {
+        if (amount == 0) {
             this.cancel();
             if (Config.DEBUG)
                 Logger.info("Stopped repeating task due to end of frames.");
         }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!iterator.hasNext())
+                    this.cancel();
+                iterator.next().spawn(player.getLocation(), player.getLocation().getYaw());
+            }
+        }.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
+        iterator = frames.iterator();
+        if (amount != -1)
+            amount--;
     }
 }

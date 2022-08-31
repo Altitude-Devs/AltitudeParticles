@@ -48,8 +48,8 @@ public class ParticleSet {
     public void run(Location location, Player player) {
         if (tooSoon(player.getUniqueId()) || isVanished(player))
             return;
-        FrameSpawnerLocation frameSpawnerLocation = new FrameSpawnerLocation(repeat, frames, location, player.getLocation().getYaw());
-        frameSpawnerLocation.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), frameDelay, repeatDelay);
+        FrameSpawnerLocation frameSpawnerLocation = new FrameSpawnerLocation(repeat, frames, frameDelay, location, player.getLocation().getYaw());
+        frameSpawnerLocation.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, repeatDelay);
     }
 
     public void run(Player player, PlayerSettings playerSettings) {
@@ -57,8 +57,8 @@ public class ParticleSet {
             return;
         if (Config.DEBUG)
             Logger.info("Starting particle set % for %.", uniqueId, player.getName());
-        FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, frames, player, playerSettings, aPartType, uniqueId);
-        frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), frameDelay, repeatDelay);
+        FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, frames, frameDelay, player, playerSettings, aPartType, uniqueId);
+        frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, repeatDelay);
     }
 
     private boolean isVanished(Player player) {
