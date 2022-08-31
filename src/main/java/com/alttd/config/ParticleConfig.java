@@ -88,7 +88,7 @@ public class ParticleConfig {
                 ParticleBuilder particleBuilder = new ParticleBuilder(particleType);
                 if (particleType.getDataType().equals(Particle.DustOptions.class)) {
                     int rgb = HexFormat.fromHexDigits((String) pData.get("color"));
-                    particleBuilder.data(new Particle.DustOptions(Color.fromBGR(rgb), 1));
+                    particleBuilder.data(new Particle.DustOptions(Color.fromRGB(rgb), 1));
                 } else if (particleType.getDataType().equals(MaterialData.class)) {
                     //TODO implement
                 } else if (particleType.getDataType().equals(BlockData.class)) {
