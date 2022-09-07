@@ -7,6 +7,7 @@ import com.alttd.objects.Frame;
 import com.alttd.objects.ParticleSet;
 import com.alttd.storage.PlayerSettings;
 import com.alttd.util.Logger;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -23,7 +24,8 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
     private final APartType aPartType;
     private final String uniqueId;
     private final int frameDelay;
-    public FrameSpawnerPlayer(int amount, List<Frame> frames, int frameDelay, Player player, PlayerSettings playerSettings, APartType aPartType, String uniqueId) {
+    private final boolean stationary;
+    public FrameSpawnerPlayer(int amount, List<Frame> frames, int frameDelay, Player player, PlayerSettings playerSettings, APartType aPartType, String uniqueId, boolean stationary) {
         this.amount = amount;
         this.frames = frames;
         this.iterator = frames.iterator();
@@ -32,6 +34,7 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
         this.aPartType = aPartType;
         this.uniqueId = uniqueId;
         this.frameDelay = frameDelay;
+        this.stationary = stationary;
     }
 
     @Override
@@ -42,6 +45,8 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
                 Logger.info("Stopped repeating task due to player offline.");
             return;
         }
+        Location location = player.getLocation();
+        float yaw = location.getYaw();
         ParticleSet activeParticleSet = playerSettings.getParticles(aPartType);
         if (activeParticleSet == null || !activeParticleSet.getParticleId().equalsIgnoreCase(uniqueId) || !playerSettings.hasActiveParticles()) {
             this.cancel();
@@ -57,9 +62,15 @@ public class FrameSpawnerPlayer extends BukkitRunnable {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (!iterator.hasNext())
+                if (!iterator.hasNext()) {
                     this.cancel();
-                iterator.next().spawn(player.getLocation(), player.getLocation().getYaw());
+                    return;
+                }
+                Frame next = iterator.next();
+                if (stationary)
+                    next.spawn(location, yaw);
+                else
+                    next.spawn(player.getLocation(), player.getLocation().getYaw());
             }
         }.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, frameDelay);
         iterator = frames.iterator();

@@ -73,6 +73,7 @@ public class ParticleConfig {
         int repeat = (int) (long)  jsonObject.get("repeat");
         int repeatDelay = (int) (long) jsonObject.get("repeat_delay");
         double randomOffset = (double) jsonObject.get("random_offset");
+        boolean stationary = (boolean) jsonObject.get("stationary");
         JSONObject frames = (JSONObject) jsonObject.get("frames");
         List<Frame> loadedFrames = new ArrayList<>();
         for (Object key : frames.keySet()) {
@@ -101,12 +102,15 @@ public class ParticleConfig {
                     //TODO implement
                 } else if (particleType.getDataType().equals(ItemStack.class)) {
                     //TODO implement
+                } else {
+                    double data = (double) pData.get("extra");
+                    particleBuilder.extra(data);
                 }
                 aParticleList.add(new AParticle(x, y, z, randomOffset, particleBuilder));
             }
             loadedFrames.add(new Frame(aParticleList));
         }
-        return new ParticleSet(loadedFrames, displayName, List.of(lore.split("\n")), frameDelay, repeat, repeatDelay, aPartType, particleName, permission, packagePermission, displayItem);
+        return new ParticleSet(loadedFrames, displayName, List.of(lore.split("\n")), frameDelay, repeat, repeatDelay, stationary, aPartType, particleName, permission, packagePermission, displayItem);
     }
 
     public static void reload() {

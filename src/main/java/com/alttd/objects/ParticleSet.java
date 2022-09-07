@@ -27,8 +27,9 @@ public class ParticleSet {
     private final String permission;
     private final String packPermission;
     private final ItemStack itemStack;
+    private final boolean stationary;
 
-    public ParticleSet(List<Frame> frames, String name, List<String> lore, int frameDelay, int repeat, int repeatDelay, APartType aPartType, String uniqueId, String permission, String packPermission,ItemStack itemStack) {
+    public ParticleSet(List<Frame> frames, String name, List<String> lore, int frameDelay, int repeat, int repeatDelay, boolean stationary, APartType aPartType, String uniqueId, String permission, String packPermission, ItemStack itemStack) {
         MiniMessage miniMessage = MiniMessage.miniMessage();
         this.frames = frames;
         this.frameDelay = frameDelay;
@@ -38,6 +39,7 @@ public class ParticleSet {
         this.uniqueId = uniqueId;
         this.permission = permission;
         this.packPermission = packPermission;
+        this.stationary = stationary;
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.displayName(miniMessage.deserialize(name));
         itemMeta.lore(lore.stream().map(miniMessage::deserialize).collect(Collectors.toList()));
@@ -57,7 +59,7 @@ public class ParticleSet {
             return;
         if (Config.DEBUG)
             Logger.info("Starting particle set % for %.", uniqueId, player.getName());
-        FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, frames, frameDelay, player, playerSettings, aPartType, uniqueId);
+        FrameSpawnerPlayer frameSpawnerPlayer = new FrameSpawnerPlayer(repeat, frames, frameDelay, player, playerSettings, aPartType, uniqueId, stationary);
         frameSpawnerPlayer.runTaskTimerAsynchronously(AltitudeParticles.getInstance(), 0, repeatDelay);
     }
 
