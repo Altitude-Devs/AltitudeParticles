@@ -8,7 +8,7 @@ public class DatabaseConfig extends AbstractConfig {
 
     static DatabaseConfig config;
     public DatabaseConfig() {
-        super(new File(System.getProperty("user.home") + File.separator + "share" + File.separator + "configs"
+        super(new File(File.separator + "mnt" + File.separator + "configs"
                 + File.separator + "AltitudeParticles"), "database.yml");
     }
 

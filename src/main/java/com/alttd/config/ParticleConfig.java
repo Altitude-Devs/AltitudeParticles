@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ParticleConfig {
 
-    private static final File particlesDir = new File(System.getProperty("user.home") + File.separator + "share" + File.separator + "configs"
+    private static final File particlesDir = new File(File.separator + "mnt" + File.separator + "configs"
             + File.separator + "AltitudeParticles" + File.separator + "particles");
     private static ParticleConfig instance = null;
 
