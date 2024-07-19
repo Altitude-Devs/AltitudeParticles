@@ -33,7 +33,7 @@ public class Queries {
 
     public static void setParticlesActive(UUID uuid, boolean particlesActive) {
         String sql = "UPDATE user_settings " +
-                "SET particles_active = ?" +
+                "SET particles_active = ? " +
                 "WHERE uuid = ?";
 
         try {
