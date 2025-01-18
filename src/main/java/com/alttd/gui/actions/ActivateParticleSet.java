@@ -58,7 +58,7 @@ public class ActivateParticleSet implements GUIAction {
                         meta.getEnchants().forEach((enchantment, integer) -> meta.removeEnchant(enchantment));
                         item.setItemMeta(meta);
                     });
-            itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+            itemMeta.addEnchant(Enchantment.INFINITY, 1, true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             Queries.addParticle(player.getUniqueId(), particleSet.getAPartType(), particleSet.getParticleId());
             enable = true;

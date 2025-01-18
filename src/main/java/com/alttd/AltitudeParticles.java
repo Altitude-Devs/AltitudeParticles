@@ -1,14 +1,12 @@
 package com.alttd;
 
 import com.alttd.commands.CommandManager;
-import com.alttd.commands.subcommands.CommandReload;
 import com.alttd.config.Config;
 import com.alttd.config.DatabaseConfig;
 import com.alttd.config.ParticleConfig;
 import com.alttd.database.Database;
 import com.alttd.listeners.*;
 import com.alttd.objects.APartType;
-import com.alttd.particles.InitParticles;
 import com.alttd.util.Logger;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,7 +30,6 @@ public class AltitudeParticles extends JavaPlugin {
         Database.getDatabase().init();
         new CommandManager();
         registerEvents();
-        InitParticles.init();
         Logger.info("--------------------------------------------------");
         Logger.info("Altitude Particles started");
         Logger.info("--------------------------------------------------");

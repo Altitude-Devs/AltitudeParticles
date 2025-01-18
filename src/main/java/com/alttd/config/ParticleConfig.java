@@ -13,7 +13,6 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -90,9 +89,11 @@ public class ParticleConfig {
                 if (particleType.getDataType().equals(Particle.DustOptions.class)) {
                     int rgb = HexFormat.fromHexDigits((String) pData.get("color"));
                     particleBuilder.data(new Particle.DustOptions(Color.fromRGB(rgb), 1));
-                } else if (particleType.getDataType().equals(MaterialData.class)) {
-                    //TODO implement
-                } else if (particleType.getDataType().equals(BlockData.class)) {
+                }
+//                else if (particleType.getDataType().equals(MaterialData.class)) {
+//                    //TODO implement
+//                }
+                else if (particleType.getDataType().equals(BlockData.class)) {
                     //TODO implement
                 } else if (particleType.getDataType().equals(Integer.class)) {
                     //TODO implement

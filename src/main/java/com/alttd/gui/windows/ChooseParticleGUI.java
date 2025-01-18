@@ -49,7 +49,7 @@ public class ChooseParticleGUI extends DefaultGUI {
 
             if (activeParticleSet != null && playerSettings.getParticles(aPartType).equals(particleSet)) {
                 ItemMeta itemMeta = itemStack.getItemMeta();
-                itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+                itemMeta.addEnchant(Enchantment.INFINITY, 1, true);
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 itemStack.setItemMeta(itemMeta);
             }
